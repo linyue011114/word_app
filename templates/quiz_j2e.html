@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズ形式（日本語 → 英語）</title>
+</head>
+<body>
+    <h1>クイズ形式：日本語 → 英語</h1>
+
+    {% if show_result %}
+        <p>意味: <strong>{{ meaning }}</strong></p>
+        <p>あなたの答え: {{ user_answer }}</p>
+        {% if is_correct %}
+            <p style="color:green;">正解！</p>
+        {% else %}
+            <p style="color:red;">不正解。正解は「{{ correct_answer }}」でした。</p>
+        {% endif %}
+        <form action="{{ url_for('quiz_j2e') }}" method="get">
+            <button type="submit">次の問題へ</button>
+        </form>
+    {% else %}
+        <form action="{{ url_for('quiz_j2e') }}" method="post">
+            <p>意味: <strong>{{ meaning }}</strong></p>
+            <input type="hidden" name="meaning" value="{{ meaning }}">
+            <input type="hidden" name="correct_answer" value="{{ correct_answer }}">
+            <input type="text" name="answer" placeholder="英単語を入力" required>
+            <button type="submit">答える</button>
+        </form>
+    {% endif %}
+
+    <p><a href="{{ url_for('index') }}">← ホームに戻る</a></p>
+</body>
+</html>

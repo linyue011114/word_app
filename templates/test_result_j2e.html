@@ -1,0 +1,28 @@
+<!-- templates/test_result_j2e.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>テスト結果（日本語 → 英語）</title>
+</head>
+<body>
+    <h1>テスト結果</h1>
+    <p>正解数: {{ score }} / {{ total }}</p>
+
+    <ul>
+        {% for result in results %}
+            <li>
+                「{{ result.meaning }}」 → あなたの答え: <strong>{{ result.user_answer }}</strong> /
+                正解: <strong>{{ result.correct_answer }}</strong> /
+                {% if result.is_correct %}
+                    ✅ 正解！
+                {% else %}
+                    ❌ 不正解
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">トップに戻る</a>
+</body>
+</html>

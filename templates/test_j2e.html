@@ -1,0 +1,33 @@
+<!-- templates/test_j2e.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>テスト形式（日本語 → 英語）</title>
+</head>
+<body>
+    <h1>テスト形式（日本語 → 英語）</h1>
+    <form method="POST">
+        <!-- 各問題を順に表示 -->
+        {% for item in questions %}
+            <div style="margin-bottom: 1em;">
+                <!-- 問題番号と日本語の意味 -->
+                <label>{{ loop.index }}. 「{{ item.meaning }}」に対応する英単語は？</label><br>
+                <!-- ユーザーが英単語を入力 -->
+                <input type="text" name="answer{{ loop.index0 }}" autocomplete="off">
+                
+                <!-- 正解（英単語）を非表示で送信 -->
+                <input type="hidden" name="correct{{ loop.index0 }}" value="{{ item.word }}">
+                
+                <!-- 日本語の意味も一緒に送信（後で結果表示に使用） -->
+                <input type="hidden" name="meaning{{ loop.index0 }}" value="{{ item.meaning }}">
+            </div>
+        {% endfor %}
+
+        <!-- 問題数を送信（ループの回数を元に） -->
+        <input type="hidden" name="question_count" value='{{ questions|length }}'>
+        
+        <button type="submit">採点する</button>
+    </form>
+</body>
+</html>

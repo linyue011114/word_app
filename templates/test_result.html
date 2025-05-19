@@ -1,0 +1,26 @@
+<!-- templates/test_result.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>テスト結果</title>
+</head>
+<body>
+    <h1>テスト結果</h1>
+    <p>正解数: {{ score }} / {{ total }}</p>
+    <ul>
+    {% for r in results %}
+        <li>
+            単語: {{ r.word }}<br>
+            正しい意味: {{ r.correct_answer }}<br>
+            あなたの答え: {{ r.user_answer }}<br>
+            {% if r.is_correct %}
+                <strong>正解</strong>
+            {% else %}
+                <strong>不正解</strong>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

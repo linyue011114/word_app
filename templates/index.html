@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>英単語学習アプリ</title>
+</head>
+<body>
+    <h1>英単語学習アプリへようこそ！</h1>
+    <ul>
+        <!-- 形式選択時に共通の設定画面へ飛ばし、パラメータで形式を渡す -->
+        <li><a href="{{ url_for('settings') }}?mode=test_e2j">テスト形式（英→日）</a></li>
+        <li><a href="{{ url_for('settings') }}?mode=test_j2e">テスト形式（日→英）</a></li>
+        <li><a href="{{ url_for('settings') }}?mode=quiz">クイズ形式（英→日）</a></li>
+        <li><a href="{{ url_for('settings') }}?mode=quiz_j2e">クイズ形式（日→英）</a></li>
+    </ul>
+</body>
+</html>
