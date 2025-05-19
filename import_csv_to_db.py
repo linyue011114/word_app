@@ -1,19 +1,31 @@
 import sqlite3
 import csv
 
+# DB接続
 conn = sqlite3.connect('words.db')
 cursor = conn.cursor()
 
+# 既存のテーブルを削除
 cursor.execute('DROP TABLE IF EXISTS words')
-cursor.execute('CREATE TABLE words (word TEXT, meaning TEXT)')
 
-with open('leap1800.csv', 'r', encoding='UTF-8') as file:
+# ✅ number カラムを含めたテーブルを作成
+cursor.execute('CREATE TABLE words (number INTEGER PRIMARY KEY, word TEXT, meaning TEXT)')
+
+# CSVを開いて読み込む
+with open('leap1800.csv', 'r', encoding='utf-8') as file:
     reader = csv.reader(file)
-    next(reader)  # ヘッダーをスキップする場合
+    next(reader)  # ヘッダー行をスキップ
+
     for row in reader:
-        english = row[0].strip()
-        japanese = row[1].strip()
-        cursor.execute("INSERT INTO words (word, meaning) VALUES (?, ?)", (english, japanese))
+        number = int(row[0].strip())     # ✅ 1列目: number
+        word = row[1].strip()            # ✅ 2列目: word
+        meaning = row[2].strip()         # ✅ 3列目: meaning
+        cursor.execute(
+            "INSERT INTO words (number, word, meaning) VALUES (?, ?, ?)",
+            (number, word, meaning)
+        )
+
+# 保存して終了
 conn.commit()
 conn.close()
-print("登録完了")
+print("✅ 正しく登録されました。")

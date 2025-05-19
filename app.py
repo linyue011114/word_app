@@ -237,4 +237,6 @@ def test_j2e():
         return render_template('test_j2e.html', questions=questions)
 # ←←← 最後にこれ！
 if __name__ == '__main__':
-    app.run(debug=True)
+    import os
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
