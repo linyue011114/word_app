@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>テスト形式（英語 → 日本語）</title>
+    <!-- ✅ スマホ対応のスタイル -->
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 1em;
+            margin: 0;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin: 1em 0;
+        }
+
+        form {
+            margin-top: 1em;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 0.5em;
+            font-size: 1.1em;
+            width: 80%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 1em;
+            padding: 0.7em 1.5em;
+            font-size: 1.1em;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 2em;
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>テスト：英語 → 日本語</h1>
+
+    <!-- テストのフォーム開始 -->
+    <form method="post">
+        {% for q in questions %}
+            <!-- 単語の表示と入力欄 -->
+            <p>{{ loop.index }}. {{ q.word }}</p>
+            <input type="text" name="answer_{{ loop.index0 }}" autocomplete="off">
+        {% endfor %}
+
+        <!-- 問題データを隠しフィールドに埋め込む -->
+        <input type="hidden" name="questions" value='{{ questions_json | safe }}'>
+        <!-- 送信ボタン -->
+        <button type="submit">採点する</button>
+    </form>
+
+    <!-- ホームに戻るリンク -->
+    <p><a href="{{ url_for('index') }}">← ホームに戻る</a></p>
+</body>
+</html>

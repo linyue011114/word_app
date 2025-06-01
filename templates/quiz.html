@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズ形式</title><!-- ✅ スマホ対応のスタイル -->
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 1em;
+            margin: 0;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin: 1em 0;
+        }
+
+        form {
+            margin-top: 1em;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 0.5em;
+            font-size: 1.1em;
+            width: 80%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 1em;
+            padding: 0.7em 1.5em;
+            font-size: 1.1em;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 2em;
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>クイズ形式：英語 → 日本語</h1>
+
+    {% if show_result %}
+        <p>英単語: <strong>{{ word }}</strong></p>
+        <p>あなたの答え: {{ user_answer }}</p>
+        {% if is_correct %}
+            <p style="color:green;">正解！</p>
+        {% else %}
+            <p style="color:red;">不正解。正解は「{{ correct_answer }}」でした。</p>
+        {% endif %}
+
+        {% if has_next %}
+            <hr>
+            <form action="{{ url_for('quiz') }}" method="post">
+                <p>英単語: <strong>{{ next_word }}</strong></p>
+                <input type="hidden" name="word" value="{{ next_word }}">
+                <input type="hidden" name="correct_answer" value="{{ next_correct_answer }}">
+                <input type="text" name="answer" placeholder="日本語の意味を入力">
+                <button type="submit">答える</button>
+            </form>
+        {% else %}
+            <p>クイズ終了です！</p>
+        {% endif %}
+
+    {% else %}
+        <!-- 最初の1問目 -->
+        <form action="{{ url_for('quiz') }}" method="post">
+            <p>英単語: <strong>{{ word }}</strong></p>
+            <input type="hidden" name="word" value="{{ word }}">
+            <input type="hidden" name="correct_answer" value="{{ correct_answer }}">
+            <input type="text" name="answer" placeholder="日本語の意味を入力">
+            <button type="submit">答える</button>
+        </form>
+    {% endif %}
+
+    <p><a href="{{ url_for('index') }}">← ホームに戻る</a></p>
+</body>
+</html>

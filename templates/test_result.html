@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テスト結果</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 1em;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.1em;
+        }
+
+        hr {
+            margin: 1em 0;
+        }
+
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+
+        .wrong {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>テスト結果</h2>
+    <p>正解数: {{ score }} / {{ total }}</p>
+
+    {% for result in results %}
+      <hr>
+      <p><strong>単語:</strong> {{ result.word }}</p>
+      <p><strong>正しい意味:</strong> {{ result.correct_answer }}</p>
+      <p><strong>あなたの答え:</strong> {{ result.user_answer }}</p>
+      {% if result.is_correct %}
+        <p class="correct">正解</p>
+      {% else %}
+        <p class="wrong">不正解</p>
+      {% endif %}
+    {% endfor %}
+</body>
+</html>

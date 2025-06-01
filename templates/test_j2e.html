@@ -1,0 +1,97 @@
+<!-- templates/test_j2e.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>テスト形式（日本語 → 英語）</title>
+    <!-- ✅ スマホ対応のスタイル -->
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 1em;
+            margin: 0;
+            background-color: #f8f8f8;
+        }
+    
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+    
+        p {
+            font-size: 1.1em;
+            margin: 1em 0;
+        }
+    
+        form {
+            margin-top: 1em;
+            /* text-align: center; ← 削除 */
+        }
+    
+        input[type="text"] {
+            display: block;        /* ブロック要素にして下にずらす */
+            margin: 0.3em auto 0 auto;  /* 上に少し余白、左右中央寄せ */
+            padding: 0.5em;
+            font-size: 1.1em;
+            width: 80%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    
+        button {
+            display: block;
+            clear: both;
+            margin: 1.5em auto 0 auto;
+            padding: 0.7em 1.5em;
+            font-size: 1.1em;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 10px;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 2em;
+            color: #007BFF;
+            text-decoration: none;
+        }
+    
+        /* 問題ごとのブロックにマージンを */
+        div.question-block {
+            margin-bottom: 1.5em;
+        }
+    </style>    
+</head>
+<body>
+    <h1>テスト形式（日本語 → 英語）</h1>
+    <form method="POST">
+        <!-- 各問題を順に表示 -->
+        {% for item in questions %}
+            <div class="question-block">
+                <!-- 問題番号と日本語の意味 -->
+                <label>{{ loop.index }}. 「{{ item.meaning }}」に対応する英単語は？</label><br>
+                <!-- ユーザーが英単語を入力 -->
+                <input type="text" name="answer{{ loop.index0 }}" autocomplete="off">
+                
+                <!-- 正解（英単語）を非表示で送信 -->
+                <input type="hidden" name="correct{{ loop.index0 }}" value="{{ item.word }}">
+                
+                <!-- 日本語の意味も一緒に送信（後で結果表示に使用） -->
+                <input type="hidden" name="meaning{{ loop.index0 }}" value="{{ item.meaning }}">
+            </div>
+        {% endfor %}
+        <!-- 🧼 hiddenの干渉を防ぐダミーdiv -->
+        <div style="height: 1px; clear: both;"></div>
+        <!-- 問題数を送信（ループの回数を元に） -->
+        <input type="hidden" name="question_count" value='{{ questions|length }}'>
+        <button type="submit">採点する</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>テスト結果（日本語 → 英語）</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 1em;
+            margin: 0;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.2em;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 2em;
+        }
+
+        li {
+            background-color: white;
+            margin: 0.5em 0;
+            padding: 1em;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 2em;
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>テスト結果</h1>
+    <p>正解数: {{ score }} / {{ total }}</p>
+
+    <ul>
+        {% for result in results %}
+            <li>
+                「{{ result.meaning }}」<br>
+                あなたの答え: <strong>{{ result.user_answer }}</strong><br>
+                正解: <strong>{{ result.correct_answer }}</strong><br>
+                {% if result.is_correct %}
+                    <span class="correct">✅ 正解！</span>
+                {% else %}
+                    <span class="incorrect">❌ 不正解</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">トップに戻る</a>
+</body>
+</html>

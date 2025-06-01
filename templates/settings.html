@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><meta charset="UTF-8"><title>設定</title></head>
+<!-- ✅ スマホ対応のスタイル -->
+<style>
+  body {
+      font-family: sans-serif;
+      padding: 1em;
+      margin: 0;
+      background-color: #f8f8f8;
+  }
+
+  h1 {
+      text-align: center;
+      color: #333;
+  }
+
+  p {
+      font-size: 1.1em;
+      margin: 1em 0;
+  }
+
+  form {
+      margin-top: 1em;
+      text-align: center;
+  }
+
+  input[type="text"] {
+      padding: 0.5em;
+      font-size: 1.1em;
+      width: 80%;
+      max-width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+  }
+
+  button {
+      margin-top: 1em;
+      padding: 0.7em 1.5em;
+      font-size: 1.1em;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 10px;
+  }
+
+  button:hover {
+      background-color: #0056b3;
+  }
+
+  a {
+      display: block;
+      text-align: center;
+      margin-top: 2em;
+      color: #007BFF;
+      text-decoration: none;
+  }
+</style>
+<body>
+<h1>出題設定</h1>
+<form method="post">
+  <input type="hidden" name="mode" value="{{ request.args.get('mode', '') }}">
+  
+  <label>開始番号: <input type="number" name="start" value="1" min="1"></label><br>
+  <label>終了番号: <input type="number" name="end" value="100" min="1"></label><br>
+  <label>問題数: <input type="number" name="count" value="10" min="1"></label><br>
+  <label>ランダム出題:
+    <select name="random">
+      <option value="yes">する</option>
+      <option value="no">しない</option>
+    </select>
+  </label><br>
+  
+  <button type="submit">開始</button>
+</form>
+</body>
+</html>

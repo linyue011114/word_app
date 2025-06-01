@@ -1,0 +1,91 @@
+/* 共通スタイル */
+
+/* bodyタグの基本スタイル */
+body {
+    /* フォントを設定（複数のフォントを指定して、使用可能なものを順番に使う） */
+    font-family: "Segoe UI", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    /* 画面の周りにマージン（余白）を少しだけ設定 */
+    margin: 1em;
+    padding: 0;  /* bodyにパディングを設定しない */
+    /* 背景色を薄いグレーに */
+    background-color: #fdfdfd;
+    /* 文字色を濃いグレーに */
+    color: #333;
+}
+
+/* h1タグ（見出し1）のスタイル */
+h1 {
+    /* フォントサイズを大きく設定 */
+    font-size: 1.8em;
+    /* 下の余白を少し大きく設定 */
+    margin-bottom: 0.5em;
+}
+
+/* formタグのスタイル */
+form {
+    /* フォームの下に余白を設定 */
+    margin-bottom: 2em;
+}
+
+/* inputとbuttonタグの基本スタイル */
+input[type="text"], button {
+    /* フォントサイズを1em（標準の文字サイズ）に設定 */
+    font-size: 1em;
+    /* ボタンと入力フィールドにパディング（余白）を設定 */
+    padding: 0.5em;
+    /* 下に少し余白を設定 */
+    margin-bottom: 1em;
+    /* 横幅を100%にし、最大500pxで制限 */
+    width: 100%;
+    max-width: 500px;
+    /* 横幅調整のためボックスのサイズを変更 */
+    box-sizing: border-box;
+}
+
+/* buttonタグの追加スタイル */
+button {
+    /* 背景色を青色に設定 */
+    background-color: #007BFF;
+    /* ボタンの文字色を白に設定 */
+    color: white;
+    /* ボーダーを消して、角を丸くする */
+    border: none;
+    border-radius: 6px;
+    /* カーソルをポインタにしてクリックできることを示す */
+    cursor: pointer;
+}
+
+/* buttonタグがホバー（マウスオーバー）されたときのスタイル */
+button:hover {
+    /* 背景色を少し濃い青に変える */
+    background-color: #0056b3;
+}
+
+/* ulタグ（リスト）のスタイル */
+ul {
+    /* リストアイテムの前に少しだけインデントをつける */
+    padding-left: 1.2em;
+}
+
+/* aタグ（リンク）のスタイル */
+a {
+    /* テキストの装飾を取り除く（下線なし） */
+    text-decoration: none;
+    /* リンクの色を青に設定 */
+    color: #007BFF;
+}
+
+/* aタグがホバー（マウスオーバー）されたときのスタイル */
+a:hover {
+    /* リンクに下線を表示 */
+    text-decoration: underline;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+    /* スマホの画面など、幅が600px以下の場合、ボタンやフォームのサイズを調整 */
+    input[type="text"], button {
+        width: 100%;
+        max-width: 100%;
+    }
+}

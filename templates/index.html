@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>英単語学習アプリ</title>
+
+    <!-- ✅ スマホ対応のスタイル -->
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 1em;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 1em 0;
+        }
+
+        a {
+            display: block;
+            background-color: #007BFF;
+            color: white;
+            padding: 1em;
+            border-radius: 10px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>英単語学習アプリへようこそ！</h1>
+    <ul>
+        <li><a href="{{ url_for('settings') }}?mode=test_e2j">テスト形式（英→日）</a></li>
+        <li><a href="{{ url_for('settings') }}?mode=test_j2e">テスト形式（日→英）</a></li>
+        <li><a href="{{ url_for('settings') }}?mode=quiz">クイズ形式（英→日）</a></li>
+        <li><a href="{{ url_for('settings') }}?mode=quiz_j2e">クイズ形式（日→英）</a></li>
+    </ul>
+</body>
+</html>
