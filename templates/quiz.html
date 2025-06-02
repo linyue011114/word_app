@@ -77,7 +77,7 @@
                 <p>英単語: <strong>{{ next_word }}</strong></p>
                 <input type="hidden" name="word" value="{{ next_word }}">
                 <input type="hidden" name="correct_answer" value="{{ next_correct_answer }}">
-                <input type="text" name="answer" placeholder="日本語の意味を入力">
+                <input type="text" name="answer" placeholder="日本語の意味を入力" autocomplete="off">
                 <button type="submit">答える</button>
             </form>
         {% else %}
