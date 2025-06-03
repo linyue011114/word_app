@@ -215,17 +215,16 @@ def test_e2j():
         for i, q in enumerate(questions):
             user_answer = unify_spaces(preprocess_text(request.form.get(f'answer_{i}', '')))
             correct_answer = [unify_spaces(preprocess_text(meaning)) for meaning in q['clean_meaning']]
-            print(f"User Answer: {repr(user_answer)}")
-            print(f"Correct Answer: {repr(correct_answer)}")
             is_correct = user_answer in correct_answer
             if is_correct:
                 score += 1
             results.append({
         'word': q['word'],
-        'correct_answer': ', '.join(q['clean_meaning']),  # 複数意味を表示用に結合
+        # 表示用は元の CSV の値（q['meaning']）をそのまま使う
+        'correct_answer': q['meaning'],
         'user_answer': user_answer,
         'is_correct': is_correct
-            })
+    })
         return render_template('test_result.html', results=results, score=score, total=len(questions))
 
     # GET（出題）の処理
