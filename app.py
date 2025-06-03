@@ -14,6 +14,8 @@ def clean_meaning(raw):
     # []や（）、＜＞、〈〉を除去
     cleaned = re.sub(r'\[.*?\]', '', raw)
     cleaned = re.sub(r'（.*?）', '', cleaned)
+    cleaned = re.sub(r'\(.*?\)', '', cleaned)
+    cleaned = re.sub(r'\(.*?\)', '', cleaned)
     cleaned = re.sub(r'＜.*?＞', '', cleaned)
     cleaned = re.sub(r'〈.*?〉', '', cleaned)
 
