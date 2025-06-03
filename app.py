@@ -212,6 +212,8 @@ def test_e2j():
             user_answer = unify_spaces(user_answer) #　スペース統一
             correct_answer = [preprocess_text(meaning) for meaning in q['clean_meaning']]
             correct_answer = [unify_spaces(meaning) for meaning in correct_answer]
+            print(f"User Answer: {repr(user_answer)}")
+            print(f"Correct Answer: {repr(correct_answer)}")
             is_correct = user_answer in correct_answer
             if is_correct:
                 score += 1
