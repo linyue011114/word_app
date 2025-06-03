@@ -153,7 +153,7 @@ def quiz():
             return render_template('quiz.html',
                                    show_result=True,
                                    word=word,
-                                   correct_answer=correct_answer_raw,
+                                   meaning=correct_answer_raw,
                                    user_answer=user_answer,
                                    is_correct=is_correct,
                                    next_word=next_q['word'],
@@ -163,7 +163,7 @@ def quiz():
             return render_template('quiz.html',
                                    show_result=True,
                                    word=word,
-                                   correct_answer=correct_answer_raw,
+                                   meaning=correct_answer_raw,
                                    user_answer=user_answer,
                                    is_correct=is_correct,
                                    has_next=False)
