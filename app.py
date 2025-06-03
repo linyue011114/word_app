@@ -20,14 +20,20 @@ def clean_meaning(raw):
     # 全角カンマ「，」、半角カンマ「,」、句点などで分割
     # r'[，,、．.。]\s*' として区切り文字に全角カンマを入れているか確認してください
     meanings = re.split(r'[，,、．.。]\s*', cleaned)
-
     # 空文字削除、stripで前後空白除去
     meanings = [m.strip() for m in meanings if m.strip()]
-    return meanings
     # 空文字を除去し、前後の空白を削除
     cleaned_meanings = [m.strip() for m in meanings if m.strip() != '']
-
     return cleaned_meanings
+def normalize_text(text):
+    return unicodedata.normalize('NFKC', text)
+def preprocess_text(text):
+    text = unicodedata.normalize('NFKC', text)  # 正規化
+    text = text.replace('～', '~')  # すべての「～」を統一
+    return text.strip().lower()  # 前後の空白を除去＆小文字変換
+def unify_spaces(text):
+    text = text.replace('\u3000', ' ')
+    return text.strip()  # 前後の不要な空白を削除
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
     if request.method == 'POST':
@@ -126,9 +132,11 @@ def quiz():
     if request.method == 'POST':
         word = request.form['word']
         correct_answer_raw = request.form['correct_answer']
-        correct_answers =[unicodedata.normalize('NFKC', m.lower()) for m in clean_meaning(correct_answer_raw)]
         user_answer = request.form.get('answer', '').strip().lower()
-        user_answer = unicodedata.normalize('NFKC', user_answer)
+        user_answer = preprocess_text(request.form.get('answer', ''))
+        user_answer = unify_spaces(request.form.get('answer', ''))
+        correct_answers = [preprocess_text(m) for m in clean_meaning(correct_answer_raw)]
+        correct_answers = [unify_spaces(m) for m in clean_meaning(correct_answer_raw)]
         is_correct = user_answer in correct_answers
         # 次の出題の準備
         session['current_index'] += 1
@@ -200,11 +208,11 @@ def test_e2j():
 
         for i, q in enumerate(questions):
             user_answer = request.form.get(f'answer_{i}', '').strip()
-            user_answer = unicodedata.normalize('NFKC', user_answer.lower())
-            is_correct = any(
-                user_answer == unicodedata.normalize('NFKC', meaning.lower())
-                for meaning in q['clean_meaning']
-            )
+            user_answer = preprocess_text(user_answer) # Unicode正規化
+            user_answer = unify_spaces(user_answer) #　スペース統一
+            correct_answer = [preprocess_text(meaning) for meaning in q['clean_meaning']]
+            correct_answer = [unify_spaces(meaning) for meaning in correct_answer]
+            is_correct = user_answer in correct_answer
             if is_correct:
                 score += 1
             results.append({
