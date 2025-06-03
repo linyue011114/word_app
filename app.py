@@ -126,10 +126,9 @@ def quiz():
     if request.method == 'POST':
         word = request.form['word']
         correct_answer_raw = request.form['correct_answer']
-        correct_answers = [m.lower() for m in clean_meaning(correct_answer_raw)]
+        correct_answers =[unicodedata.normalize('NFKC', m.lower()) for m in clean_meaning(correct_answer_raw)]
         user_answer = request.form.get('answer', '').strip().lower()
         user_answer = unicodedata.normalize('NFKC', user_answer)
-        correct_answer = unicodedata.normalize('NFKC', correct_answer)
         is_correct = user_answer in correct_answers
         # 次の出題の準備
         session['current_index'] += 1
@@ -201,8 +200,11 @@ def test_e2j():
 
         for i, q in enumerate(questions):
             user_answer = request.form.get(f'answer_{i}', '').strip()
-            user_answer = unicodedata.normalize('NFKC', user_answer)
-            is_correct = any(user_answer == unicodedata.normalize('NFKC', meaning) for meaning in q['clean_meaning'])
+            user_answer = unicodedata.normalize('NFKC', user_answer.lower())
+            is_correct = any(
+                user_answer == unicodedata.normalize('NFKC', meaning.lower())
+                for meaning in q['clean_meaning']
+            )
             if is_correct:
                 score += 1
             results.append({
