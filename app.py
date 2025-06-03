@@ -134,11 +134,13 @@ def quiz():
     if request.method == 'POST':
         word = request.form['word']
         correct_answer_raw = request.form['correct_answer']
-        user_answer = request.form.get('answer', '').strip().lower()
-        user_answer = preprocess_text(request.form.get('answer', ''))
-        user_answer = unify_spaces(request.form.get('answer', ''))
-        correct_answers = [preprocess_text(m) for m in clean_meaning(correct_answer_raw)]
-        correct_answers = [unify_spaces(m) for m in clean_meaning(correct_answer_raw)]
+        # 1. ユーザー入力を1回だけ取得して正規化
+        raw_answer = request.form.get('answer', '')
+        user_answer = unify_spaces(preprocess_text(raw_answer))
+
+        # 2. 正解データも1回のリスト内包表記で正規化
+        clean_answers = clean_meaning(correct_answer_raw)
+        correct_answers = [unify_spaces(preprocess_text(m)) for m in clean_answers]
         is_correct = user_answer in correct_answers
         # 次の出題の準備
         session['current_index'] += 1
