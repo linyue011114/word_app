@@ -30,6 +30,8 @@ def normalize_text(text):
 def preprocess_text(text):
     text = unicodedata.normalize('NFKC', text)  # 正規化
     text = text.replace('～', '~')  # すべての「～」を統一
+    text = text.replace('〜', '~')  # 波ダッシュ→半角チルダ
+    text = text.replace('ー', '~')  # 長音符→半角チルダ
     return text.strip().lower()  # 前後の空白を除去＆小文字変換
 def unify_spaces(text):
     text = text.replace('\u3000', ' ')
