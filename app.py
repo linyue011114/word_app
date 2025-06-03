@@ -207,11 +207,8 @@ def test_e2j():
         results = []
 
         for i, q in enumerate(questions):
-            user_answer = request.form.get(f'answer_{i}', '').strip()
-            user_answer = preprocess_text(user_answer) # Unicode正規化
-            user_answer = unify_spaces(user_answer) #　スペース統一
-            correct_answer = [preprocess_text(meaning) for meaning in q['clean_meaning']]
-            correct_answer = [unify_spaces(meaning) for meaning in correct_answer]
+            user_answer = unify_spaces(preprocess_text(request.form.get(f'answer_{i}', '')))
+            correct_answer = [unify_spaces(preprocess_text(meaning)) for meaning in q['clean_meaning']]
             print(f"User Answer: {repr(user_answer)}")
             print(f"Correct Answer: {repr(correct_answer)}")
             is_correct = user_answer in correct_answer
